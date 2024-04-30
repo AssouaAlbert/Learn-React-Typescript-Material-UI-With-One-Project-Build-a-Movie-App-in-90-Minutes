@@ -42,7 +42,7 @@ function Sidebar() {
   const { pathname } = useLocation();
   return (
     <Box sx={{
-      backgroundColor: "#161d2f",
+      backgroundColor: "161d2f",
       padding: 2,
       borderRadius: 2,
       display: "flex",
@@ -50,7 +50,7 @@ function Sidebar() {
         xs: "row",
         lg: "column"
       },
-      alignItems: "start",
+      alignItems: "center",
       justifyContent: "space-between",
       width: {
         sm: "100%",
@@ -89,17 +89,14 @@ function Sidebar() {
           {navLinks.map((item: linkRoute) => {
             return <Link key={item.name} to={item.link} style={{ textDecoration: 'none' }}>
               <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 2,
-                  color: 'white',
-                  textDecoration: 'none'
-                }}
+              sx={{
+                display: 'flex',
+                alignItems:'center'
+              }}
               >
                 <img src={item.icon} alt={item.name} style={{
                   width: '18px',
-                  filter: `${pathname === item.link ? 'invert(8%) sepia(14%) saturated(66%) brightness(99%)' : 'invert(84%)'}`
+                  filter: `${pathname === item.link ? 'invert(58%) sepia(14%) saturated(3166%) brightness(99%)' : 'invert(84%)'}`
 
                 }} />
                 <Hidden mdDown>

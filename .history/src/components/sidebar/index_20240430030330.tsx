@@ -1,40 +1,45 @@
 import React, { ReactElement } from 'react'
-import homeIcon from "../../assets/icons/icon-nav-home.svg";
-import movieIcon from "../../assets/icons/icon-nav-movies.svg";
-import tvSeriesIcon from "../../assets/icons/icon-nav-tv-series.svg";
-import bookmarkIcon from "../../assets/icons/icon-nav-bookmark.svg";
+import HomeIcon from '../icons/home-icon'
+import MovieIcon from '../icons/movie-icon'
+import BookmarkIcon from '../icons/bookmark-icon'
+import TvSeriesIcon from '../icons/series-icon'
 import { Link, useLocation } from 'react-router-dom'
 import { Box, Hidden, Typography } from '@mui/material'
 import { JsxElement } from 'typescript'
 
 interface linkRoute {
   name: string,
-  icon: string,
+  icon: ({ fill, width, height }: Record<string, string>) => JSX.Element,
   link: string
 }
-const navLinks: linkRoute[] = [{
+const navLinks : linkRoute[] = [{
   name: "Home",
-  icon: homeIcon,
+  icon: HomeIcon,
   link: "/"
 },
 {
   name: "Movies",
-  icon: movieIcon,
+  icon: MovieIcon,
   link: "/movie"
 }
   ,
 {
   name: "Bookmarks",
-  icon: bookmarkIcon,
+  icon: BookmarkIcon,
   link: "/bookmarks"
 }
   ,
 {
   name: "TvSeries",
-  icon: tvSeriesIcon,
+  icon: TvSeriesIcon,
   link: "/tv-series"
 }
-
+  ,
+{
+  name: "Movies",
+  icon: MovieIcon,
+  link: "/movie"
+}
 ]
 
 
@@ -42,7 +47,7 @@ function Sidebar() {
   const { pathname } = useLocation();
   return (
     <Box sx={{
-      backgroundColor: "#161d2f",
+      backgroundColor: "161d2f",
       padding: 2,
       borderRadius: 2,
       display: "flex",
@@ -50,7 +55,7 @@ function Sidebar() {
         xs: "row",
         lg: "column"
       },
-      alignItems: "start",
+      alignItems: "center",
       justifyContent: "space-between",
       width: {
         sm: "100%",
@@ -87,26 +92,10 @@ function Sidebar() {
           gap: 4
         }}>
           {navLinks.map((item: linkRoute) => {
-            return <Link key={item.name} to={item.link} style={{ textDecoration: 'none' }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 2,
-                  color: 'white',
-                  textDecoration: 'none'
-                }}
-              >
-                <img src={item.icon} alt={item.name} style={{
-                  width: '18px',
-                  filter: `${pathname === item.link ? 'invert(8%) sepia(14%) saturated(66%) brightness(99%)' : 'invert(84%)'}`
-
-                }} />
-                <Hidden mdDown>
-                  <Typography>{item.name}</Typography>
-                </Hidden>
-              </Box>
-
+            return <Link key={item.name} to={item.link} style={{textDecoration:'none'}}>
+              <Hidden mdDown>
+<Typography></Typography>
+              </Hidden>
             </Link>
           })}
         </Box>

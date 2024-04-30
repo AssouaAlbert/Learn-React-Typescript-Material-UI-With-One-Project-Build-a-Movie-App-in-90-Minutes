@@ -9,7 +9,7 @@ import { JsxElement } from 'typescript'
 
 interface linkRoute {
   name: string,
-  icon: string,
+  icon: ({ fill, width, height }: Record<string, string>) => JSX.Element,
   link: string
 }
 const navLinks: linkRoute[] = [{
@@ -25,16 +25,21 @@ const navLinks: linkRoute[] = [{
   ,
 {
   name: "Bookmarks",
-  icon: bookmarkIcon,
+  icon: BookmarkIcon,
   link: "/bookmarks"
 }
   ,
 {
   name: "TvSeries",
-  icon: tvSeriesIcon,
+  icon: TvSeriesIcon,
   link: "/tv-series"
 }
-
+  ,
+{
+  name: "Movies",
+  icon: tvSeriesIcon,
+  link: "/movie"
+}
 ]
 
 
@@ -42,7 +47,7 @@ function Sidebar() {
   const { pathname } = useLocation();
   return (
     <Box sx={{
-      backgroundColor: "#161d2f",
+      backgroundColor: "161d2f",
       padding: 2,
       borderRadius: 2,
       display: "flex",
@@ -50,7 +55,7 @@ function Sidebar() {
         xs: "row",
         lg: "column"
       },
-      alignItems: "start",
+      alignItems: "center",
       justifyContent: "space-between",
       width: {
         sm: "100%",
@@ -88,20 +93,8 @@ function Sidebar() {
         }}>
           {navLinks.map((item: linkRoute) => {
             return <Link key={item.name} to={item.link} style={{ textDecoration: 'none' }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 2,
-                  color: 'white',
-                  textDecoration: 'none'
-                }}
-              >
-                <img src={item.icon} alt={item.name} style={{
-                  width: '18px',
-                  filter: `${pathname === item.link ? 'invert(8%) sepia(14%) saturated(66%) brightness(99%)' : 'invert(84%)'}`
-
-                }} />
+              <Box>
+             <img src={<string>item.icon} alt={item.name} style={{}} />
                 <Hidden mdDown>
                   <Typography>{item.name}</Typography>
                 </Hidden>
