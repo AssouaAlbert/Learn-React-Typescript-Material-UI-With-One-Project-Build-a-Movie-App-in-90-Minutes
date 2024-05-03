@@ -1,4 +1,4 @@
-import React, { ReactEventHandler, useContext, useState } from "react";
+import React, { ReactEventHandler, SetStateAction, useContext, useState } from "react";
 import Layout from "../../Layout";
 import { Box, InputAdornment, Paper, Typography } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
@@ -9,10 +9,19 @@ import {MovieContext} from "../../context/movieContext";
 function Home() {
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState<MovieDataType[]>([]);
-  const {state} = useContext(MovieContext);
+  const {state:{movies}} = useContext(MovieContext);
+  const recommendedlist: MovieDataType[] = movies.filter((movie) =>  movie.isTrending === false);
+  const trendingList: MovieDataType[] = movies.filter((movie) =>  movie.isTrending === true);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
+  const handleSearch = (e:{target:{value: SetStateAction<string>}}) => {
+  setSearch(e.target.value);
+  const newList = movies.filter((m) => {
+    m.title.toLowerCase().includes(search.toLowerCase());
+  })
+  setSearchList(newList);
+  }
   return (
     <Layout>
       <Box>
@@ -61,13 +70,13 @@ function Home() {
               <Typography variant="h5" component="h1" my={6} fontWeight={400}>
                 Trending
               </Typography>
-              <MovieTrendingList trendingList={trendingList} />
+              {/* <MovieTrendingList trendingList={trendingList} /> */}
             </Box>
             <Box width="100%">
               <Typography variant="h5" component="h1" my={6} fontWeight={400}>
                 Recommended
               </Typography>
-              <MovieList recommendedlist={recommendedlist} />
+              {/* <MovieList recommendedlist={recommendedlist} /> */}
             </Box>
           </Box>
         ) : (

@@ -1,4 +1,0 @@
-interface LayoutProps {
-childrend: ReacrNode
-
-}

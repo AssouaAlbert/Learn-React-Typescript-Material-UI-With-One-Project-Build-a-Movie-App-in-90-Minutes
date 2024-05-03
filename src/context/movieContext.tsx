@@ -15,36 +15,37 @@ interface MovieAction {
 
 const MovieList: MovieDataType[] = moviesData;
 const initialMovieState: MovieState = {
-  movies: MovieList,
+    movies: MovieList,
 };
 const MovieReducer = (state: MovieState, action: MovieAction): MovieState => {
-  const { type } = action;
-  switch (type) {
-    case "TOOGLE BOOKMARK":
-      return {
-        ...state,
-        movies: state.movies.map((movie) => {
-          if (action.id === movie.id) {
+    const { type } = action;
+    switch (type) {
+        case "TOOGLE BOOKMARK":
+            return {
+                ...state,
+                movies: state.movies.map((movie) => {
+                    if (action.id === movie.id) {
             return { ...movie, isBookmarked: !movie.isBookmarked };
           }
           return movie;
         }),
       };
     default:
-      return state;
-  }
+        return state;
+    }
 };
 interface MovieContextType {
-  state: MovieState;
-  dispatch: React.Dispatch<MovieAction>;
+    state: MovieState;
+    dispatch: React.Dispatch<MovieAction>;
 }
 
-export const MovieContext = createContext<MovieContextType | undefined>({
-  state: initialMovieState,
-  dispatch: () => {},
+
+export const MovieContext = createContext<MovieContextType>({
+    state: initialMovieState,
+    dispatch: () => {},
 });
 
-const MovieProvider: React.FC = ({ children }: any ) => {
+const MovieProvider = ({ children }: any ) => {
   const [state, dispatch] = useReducer(MovieReducer, initialMovieState);
   return (
     <MovieContext.Provider value={{ state, dispatch }}>
